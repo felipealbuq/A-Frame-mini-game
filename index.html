@@ -26,24 +26,24 @@
       },
     })
   </script>
-    <script>
-        AFRAME.registerComponent('player', {
-            init: function () {
-                var el = this.el;
-                let scoreText = document.querySelector("#score")
-                el.addEventListener('collide', 
-                    function(e){
-                        setTimeout(function(){
-                              let target = e.detail.target
-                              target.el.parentNode.removeChild(target.el)
-                              let currentScore = parseInt(scoreText.getAttribute("value"))
-                              let newScore = currentScore + 1
-                              scoreText.setAttribute("value", newScore.toString())
-                        })
-                })
-            },
-        })
-    </script>
+  <script>
+    AFRAME.registerComponent('player', {
+          init: function () {
+              var el = this.el;
+              let scoreText = document.querySelector("#score")
+              el.addEventListener('collide', 
+                  function(e){
+                      setTimeout(function(){
+                            let target = e.detail.target
+                            target.el.parentNode.removeChild(target.el)
+                            let currentScore = parseInt(scoreText.getAttribute("value"))
+                            let newScore = currentScore + 1
+                            scoreText.setAttribute("value", newScore.toString())
+                      })
+              })
+          },
+      })
+  </script>
 </head>
 <body>
   <a-scene>
