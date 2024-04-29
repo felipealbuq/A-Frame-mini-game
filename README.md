@@ -1,4 +1,7 @@
-This is a [A-frame](https://aframe.io) project.
+# This is a [A-frame](https://aframe.io) project.
+
+![Imagem](assets/A-frame-mini-game.png)
+
 
 ## Getting Started
 
