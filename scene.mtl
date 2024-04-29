@@ -1,0 +1,47 @@
+# Exported from 3D Builder
+
+newmtl Legno01_Mat_0
+Kd 0.525087 0.433768 0.345085
+
+newmtl Mat_0
+Kd 1.000000 1.000000 1.000000
+map_Kd Mura_01_TileMat_baseColor.jpeg
+
+newmtl Legno02_Mat_0
+Kd 0.681432 0.551416 0.395847
+
+newmtl Mat_1
+Kd 1.000000 1.000000 1.000000
+map_Kd Bordo_Zolla_01_Mat_baseColor.jpeg
+
+newmtl Albero02_Mat_0
+Kd 0.687829 0.838970 0.541043
+
+newmtl Mat_2
+Kd 1.000000 1.000000 1.000000
+map_Kd Bordo_Zolla_02_Mat_baseColor.jpeg
+
+newmtl Mat_3
+Kd 1.000000 1.000000 1.000000
+map_Kd Mura_03_TileMat_baseColor.jpeg
+
+newmtl Legno04_Mat_0
+Kd 0.638901 0.535069 0.435957
+
+newmtl Ferro03_Mat_0
+Kd 0.558276 0.558276 0.558276
+
+newmtl Glass_01_Mat_0
+Kd 0.515898 0.629193 0.685841
+
+newmtl RocciaMura_04_Mat_0
+Kd 0.414726 0.414726 0.414726
+
+newmtl Legno03_Mat_0
+Kd 0.432765 0.382964 0.332883
+
+newmtl Ferro02_Mat_0
+Kd 0.454113 0.454113 0.454113
+
+newmtl RocciaMura_03_Mat_0
+Kd 0.511272 0.511272 0.511272

@@ -1,0 +1,222 @@
+<!doctype html>
+<html>
+<head>
+  <title>A-frame Mini Game</title>
+  <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+  <script src="https://unpkg.com/aframe-event-set-component@5.0.0/dist/aframe-event-set-component.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/c-frame/aframe-extras@7.0.0/dist/aframe-extras.min.js"></script>
+  <script src="https://recast-api.donmccurdy.com/aframe-inspector-plugin-recast.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/c-frame/aframe-physics-system@v4.1.0/dist/aframe-physics-system.js"></script>
+
+  <script>
+    AFRAME.registerComponent('propeller', {
+      schema: {
+        play: {default: "true"},
+      },
+
+      init: function () {
+        var data = this.data
+        var el = this.el
+        el.addEventListener('click', function () {
+          var p = document.querySelector("#p_action")
+          p.setAttribute('animation', {
+            enabled: data.play
+          })
+        })
+      },
+    })
+  </script>
+    <script>
+        AFRAME.registerComponent('player', {
+            init: function () {
+                var el = this.el;
+                let scoreText = document.querySelector("#score")
+                el.addEventListener('collide', 
+                    function(e){
+                        setTimeout(function(){
+                              let target = e.detail.target
+                              target.el.parentNode.removeChild(target.el)
+                              let currentScore = parseInt(scoreText.getAttribute("value"))
+                              let newScore = currentScore + 1
+                              scoreText.setAttribute("value", newScore.toString())
+                        })
+                })
+            },
+        })
+    </script>
+</head>
+<body>
+  <a-scene>
+      <a-assets>
+        <img id="ground" src="ground.jpg">
+        <img id="ground-normal" src="ground-normal.jpg">
+        <img id="sky" src="sky.jpg">
+        <img src="BTC_Normal.png" id="btc-normal">
+
+        <a-asset-item id="village" src="scene.gltf"></a-asset-item>
+
+        <a-asset-item id="catapult-o" src="Catapult.obj"></a-asset-item>
+        <a-asset-item id="catapult-m" src="Catapult.mtl"></a-asset-item>
+
+        <a-asset-item id="windmill" src="Windmill.gltf"></a-asset-item>
+        <a-asset-item id="propeller" src="Windmill_propeller.gltf"></a-asset-item>
+      </a-assets>
+
+      <a-sky src="#sky" rotation="0 67 0"></a-sky>
+
+      <a-plane material="color: #FFFFFF;
+                              src: #ground;
+                              repeat: 5000 5000;
+                              normal-map: #ground-normal;
+                              normal-texture-repeat: 5000 5000"
+               rotation="-90 0 0" scale="10000 10000 1"
+               position="0 -0.1 0" shadow="cast: true" static-body>
+      </a-plane>
+
+      <a-cylinder color="#AA0000" position="-2 1 0" radius="0.5" height="2"></a-cylinder>
+      <a-box color="#00AA00" height="2" depth="4" position="2 1 0"></a-box>
+
+      <a-entity position="-3 0.1 65" id="rig" movement-controls="constrainToNavMesh: true; speed: 0.5">
+        <a-entity camera position="0 1.6 0" look-controls="pointerLockEnabled: true" id="teste">
+          <a-cursor fuse="true"
+                          fuseTimeout="1500"
+                          scale="0.5 0.5 0.5"
+                          raycaster="objects: .clickable"
+                          animation__enter="property: scale;
+                                        to: 1 1 1;
+                                        dur: 1500;
+                                        easing: linear;
+                                        startEvents: fusing"
+                          event-set__reset="_event: animationcomplete__enter; scale: 0.5 0.5 0.5"
+                          animation__leave="property: scale; to: 0.5 0.5 0.5;
+                                        dur: 1500;
+                                        easing: linear;
+                                        startEvents: mouseleave">
+          </a-cursor>
+          <a-entity>
+            <a-sphere color="#FF0000" radius="1.0" dynamic-body="mass:0" player>
+            </a-sphere>
+          </a-entity>
+          <a-text id="score" value="0" font="https://cdn.aframe.io/fonts/SourceCodePro.fnt" color="white" width="4" position="1.3 0.65 -1">
+          </a-text>
+          <a-text id="timer" value="02:00" font="https://cdn.aframe.io/fonts/SourceCodePro.fnt" color="white" width="4" position="-1.45 0.65 -1">
+          </a-text>
+          <a-text id="game-over" position="0 0 -1" value="Game Over" visible="false" font="https://cdn.aframe.io/fonts/SourceCodePro.fnt" color="white" width="6" align="center">
+          </a-text>
+        </a-entity>
+      </a-entity>
+        <a-gltf-model src="#village" scale="100 100 100" shadow="cast: false">
+        </a-gltf-model>
+
+        <a-entity gltf-model="navmesh_vila.gltf" position="-8.76769 0 0.77503" nav-mesh="" visible="false"></a-entity>
+
+        <a-obj-model src="#catapult-o" mtl="#catapult-m" scale="0.05 0.05 0.05" position="2 0 70" rotation="0 180 0"
+            animation="property: position;
+                                     from: 2 0 70;
+                                     to: 2 0 61;
+                                     loop: true;
+                                     dir: alternate;
+                                     dur: 2000
+                                     easing: easeInBack" shadow="cast: true">
+       </a-obj-model>
+
+        <a-entity position="-9 0 80" rotation="0 145 0" scale="2 3 3" shadow="cast: true">
+          <a-gltf-model src="#windmill"></a-gltf-model>
+            <a-entity id="p_action" animation="property: rotation;
+                                     from:  0 0 0;
+                                     to: 0 0 360;
+                                     loop: true;
+                                     dur: 5000;
+                                     dur: 5000;
+                                     easing: linear" position="0 3.253 0">
+              <a-gltf-model src="#propeller" position="0 -3.253 0"></a-gltf-model>
+            </a-entity>
+        </a-entity>
+
+        <a-entity position="-3 0 60">
+          <a-box color="#FFEE00" scale="1 3 0.2">
+            </a-box>
+            <a-entity position="0 0.15 0.15">
+              <a-cylinder id="redButton" rotation="90 0 0" radius="0.3" height="0.15" position="0 1 0" color="#FF0000"
+                  event-set__mouseenter="color: #660000" event-set__mouseleave="color:#FF0000"
+                  event-set__move_1="_event: click; position: 0 1 -0.12"
+                  event-set__move_2="_event: click; _target: #greenButton; position: 0 0.25 0" class="clickable"
+                  propeller="play: false">
+              </a-cylinder>
+              <a-cylinder id="greenButton" rotation="90 0 0" radius="0.3" height="0.15" position="0 0.25 -0.12"
+                  color="#00FF00" event-set__mouseenter="color: #006600" event-set__mouseleave="color: #00FF00"
+                  event-set__move_1="_event: click; position: 0 0.25 -0.12"
+                  event-set__move_2="_event: click; _target: #redButton; position: 0 1 0" class="clickable"
+                  propeller="play: true">
+              </a-cylinder>
+          </a-entity>
+        </a-entity>
+
+        <a-light type="ambient" intensity="0.2" color="#AAAAAA">
+        </a-light>
+
+        <a-entity light="type: point;  intensity: 1;  castShadow: true" position="-42 23 82">
+        </a-entity>
+        <script>
+
+          function randomPosition(min, max) {
+            return Math.random() * (max - min) + min
+            }
+
+          const scene = document.querySelector("a-scene")
+
+          scene.addEventListener("loaded", () => {
+            for (let i = 0; i < 100; i++) {
+              const x = randomPosition(-55, 55)
+              const y = randomPosition(1, 1)
+              const z = randomPosition(-40, 70)
+
+              const cylinder = document.createElement("a-cylinder")
+              cylinder.setAttribute("src", "BTC_Albedo.png")
+              cylinder.setAttribute("class", "coin")
+              cylinder.setAttribute("offset", "0 0 0.25")
+              cylinder.setAttribute("rotation", "0 0 90")
+              cylinder.setAttribute("radius", "0.3")
+              cylinder.setAttribute("position", `${x} ${y} ${z}`)
+              cylinder.setAttribute("height", "0.1")
+              cylinder.setAttribute("normal-map", "#btc-normal")
+              cylinder.setAttribute("side", "double")
+              cylinder.setAttribute("roughness", "0.6")
+              cylinder.setAttribute("metalness", "0.4")
+              cylinder.setAttribute("animation", "property: rotation; to: 90 450 0; loop: true; dur: 900; easing: linear")
+              cylinder.setAttribute("static-body", "")
+
+              document.querySelector("a-scene").appendChild(cylinder)
+              }
+
+              const timerText = document.querySelector('#timer')
+              let gameOver = document.querySelector('#game-over')
+
+              let player = document.querySelector('#rig')
+
+              let seconds = 120
+
+              let gameActive = true
+
+              const timerInterval = setInterval(() => {
+                if (seconds > 0 && gameActive) {
+                  const minutes = Math.floor(seconds / 60)
+                  const remainingSeconds = seconds % 60
+                  const formattedTime = `${String(minutes).padStart(2, '0')}:${String(remainingSeconds).padStart(2, '0')}`
+                    timerText.setAttribute('value', formattedTime)
+                    seconds--
+                    } else {
+                        clearInterval(timerInterval)
+                        timerText.setAttribute('value', '00:00')
+                        gameActive = false
+                        player.removeAttribute('movement-controls')
+                        gameOver.setAttribute('visible', 'true')
+                   }
+               }, 1000)
+           })
+        </script>
+
+  </a-scene>
+</body>
+
+</html>
