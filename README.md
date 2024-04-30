@@ -11,7 +11,7 @@ First, clone this repository:
 https://github.com/felipealbuq/A-Frame-mini-game.git
 ```
 
-Open the file index.html and you need the live preview server, then browser and see the result.
+Open the file index.html and you need some live preview server, then open the browser and see the result.
 
 ## Learn More
 
