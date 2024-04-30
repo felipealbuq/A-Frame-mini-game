@@ -8,7 +8,7 @@
 First, clone this repository:
 
 ```bash
-https://github.com/felipealbuq/personal-portfolio.git
+https://github.com/felipealbuq/A-Frame-mini-game.git
 ```
 
 Open the file index.html and you need the live preview server, then browser and see the result.
