@@ -48,18 +48,18 @@
 <body>
   <a-scene>
       <a-assets>
-        <img id="ground" src="ground.jpg">
-        <img id="ground-normal" src="ground-normal.jpg">
-        <img id="sky" src="sky.jpg">
-        <img src="BTC_Normal.png" id="btc-normal">
+        <img id="ground" src="scene/textures/ground.jpg">
+        <img id="ground-normal" src="scene/textures/ground-normal.jpg">
+        <img id="sky" src="scene/textures/sky.jpg">
+        <img src="scene/textures/BTC_Normal.png" id="btc-normal">
 
-        <a-asset-item id="village" src="scene.gltf"></a-asset-item>
+        <a-asset-item id="village" src="scene/scene.gltf"></a-asset-item>
 
-        <a-asset-item id="catapult-o" src="Catapult.obj"></a-asset-item>
-        <a-asset-item id="catapult-m" src="Catapult.mtl"></a-asset-item>
+        <a-asset-item id="catapult-o" src="scene/Catapult.obj"></a-asset-item>
+        <a-asset-item id="catapult-m" src="scene/Catapult.mtl"></a-asset-item>
 
-        <a-asset-item id="windmill" src="Windmill.gltf"></a-asset-item>
-        <a-asset-item id="propeller" src="Windmill_propeller.gltf"></a-asset-item>
+        <a-asset-item id="windmill" src="scene/Windmill.gltf"></a-asset-item>
+        <a-asset-item id="propeller" src="scene/Windmill_propeller.gltf"><span/a-asset-item>
       </a-assets>
 
       <a-sky src="#sky" rotation="0 67 0"></a-sky>
@@ -108,7 +108,7 @@
         <a-gltf-model src="#village" scale="100 100 100" shadow="cast: false">
         </a-gltf-model>
 
-        <a-entity gltf-model="navmesh_vila.gltf" position="-8.76769 0 0.77503" nav-mesh="" visible="false"></a-entity>
+        <a-entity gltf-model="scene/navmesh_vila.gltf" position="-8.76769 0 0.77503" nav-mesh="" visible="false"></a-entity>
 
         <a-obj-model src="#catapult-o" mtl="#catapult-m" scale="0.05 0.05 0.05" position="2 0 70" rotation="0 180 0"
             animation="property: position;
@@ -172,7 +172,7 @@
               const z = randomPosition(-40, 70)
 
               const cylinder = document.createElement("a-cylinder")
-              cylinder.setAttribute("src", "BTC_Albedo.png")
+              cylinder.setAttribute("src", "scene/textures/BTC_Albedo.png")
               cylinder.setAttribute("class", "coin")
               cylinder.setAttribute("offset", "0 0 0.25")
               cylinder.setAttribute("rotation", "0 0 90")
