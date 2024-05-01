@@ -15,7 +15,7 @@ Open the file index.html and you need some live preview server, then open the br
 
 ## Learn More
 
-To learn more about Next.js, take a look at the following resources:
+To learn more about A-frame, take a look at the following resources:
 
 - [A-Frame Documentation](https://aframe.io/docs/1.5.0/introduction/) - learn about A-Frame features and API.
 
